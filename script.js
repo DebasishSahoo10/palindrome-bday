@@ -1,9 +1,13 @@
-function isStringPalindrome(str) {
+function reverseString(str) {
     var listOfChars = str.split('');
-    var reversedListOfChars = listOfChars.reverse();
-    var reversedString = reversedListOfChars.join('');
+    var reversedListOfChar = listOfChars.reverse();
+    var reversedString = reversedListOfChar.join('');
+    return reversedString;
+  }
+function isStringPalindrome(str) {
+    var reversedString = reverseString(str);
     return str === reversedString;
-} 
+}
 
 function getDateAsString(date) {
     var dateInString = { day:'', month:'', year:'' }
@@ -27,8 +31,8 @@ function getDateInAllFormats(date) {
     var yyyymmdd = date.year + date.month + date.day;
     var ddmmyy = date.day + date.month + date.year.slice(-2);
     var mmddyy = date.month + date.day + date.year.slice(-2);
-    var yymmdd = date.year.slice(-2) + date.month + date.day;
-    return [ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yymmdd];
+    var yyddmm = date.year.slice(-2) + date.day + date.month;
+    return [ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yyddmm];
 }
 
 function checkPalindromeForAllFormats(date) {
@@ -42,27 +46,24 @@ function checkPalindromeForAllFormats(date) {
 }
 
 function isLeapYear(year) {
-    if (year % 400 === 0) {
-        return true;
-    }
-
-    if (year % 100 === 0) {
-        return false;
-    }
-
-    if (year % 4 === 0) {
-        return true;
-    }
+    if (year % 400 === 0)
+      return true;
+  
+    if (year % 100 === 0)
+      return false;
+  
+    if (year % 4 === 0)
+      return true;
+  
     return false;
 }
 
-
 function getNextDate(date) {
-    var day = date.date + 1;
+    var day = date.day + 1;
     var month = date.month;
     var year = date.year;
 
-    var daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+    var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     if (month === 2) {
         if (isLeapYear(year)) {
@@ -81,6 +82,10 @@ function getNextDate(date) {
             day = 1;
             month++;
         }
+    }
+    if (month > 12) {
+        month = 1;
+        year++;
     }
 
     return {
@@ -110,10 +115,10 @@ function getNextPalindromeDate(date) {
 
 function getPreviousDate(date) {
     var day = date.day - 1;
-    var month = month;
-    var year = year;
+    var month = date.month;
+    var year = date.year;
 
-    var daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+    var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     if (day === 0) {
         month--;
@@ -192,14 +197,13 @@ function trialFunction(e) {
         const [ctr1, nextDate] = getNextPalindromeDate(date);
         const [ctr2, previousDate] = getPreviousPalindromeDate(date);
         if (ctr1 > ctr2) {
-            output.innerText = nextDate;
+            output.innerText = `The nearest palindrome date is ${previousDate.day}-${previousDate.month}-${previousDate.year}, you missed by ${ctr2} days.`;
         } else {
-            output.innerText = previousDate;
+            output.innerText = `The nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${ctr1} days.`;
         }
     } else {
         output.innerText = "Yay! Your birthday is palindrome!";
     }
-    console.log(isPalindrome)
 }
 
 
