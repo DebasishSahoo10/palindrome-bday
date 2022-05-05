@@ -25,6 +25,7 @@ button {
     margin-bottom: 1rem;
     border: 2px var(--primary-color) solid;
     border-radius: 0.5rem;
+    background-color: var(--primary-color);
 }
 
 #input-area {
