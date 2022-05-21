@@ -88,7 +88,7 @@ h1 {
         width: 90%;
         flex-direction: column;
         margin: 5rem auto;
-        background-size: auto;
+        background-size: contain;
     }
 
     #container-one {
